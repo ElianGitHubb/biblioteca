@@ -1,0 +1,9 @@
+Antes de utilizar el programa, debe tener creado en Laragon una base
+de datos llamada 'biblioteca', las tablas las crea el mismo programa pero 
+ya debe tener creado con anterioridad la base de datos.
+
+CREATE DATABASE biblioteca;
+USE biblioteca;
+
+IMPORTANTE: Una vez usando el programa, recuerde cargar usuarios, generos, libros
+y prestamos en ese orden.

@@ -1,0 +1,46 @@
+Comando en C# para poder conectar la base de datos biblioteca usando Laragon
+string connectionString = "Server=127.0.0.1;Port=3306;Database=biblioteca;Uid=root;Pwd=;";
+
+
+CREATE DATABASE biblioteca;
+USE biblioteca;
+
+CREATE TABLE IF NOT EXISTS usuarios (
+id INT NOT NULL AUTO_INCREMENT,
+nombre VARCHAR(25) NOT NULL,
+apellido VARCHAR(25) NOT NULL,
+dni VARCHAR(10) NOT NULL UNIQUE,
+telefono VARCHAR(25) NOT NULL UNIQUE,
+email VARCHAR(50) NOT NULL UNIQUE,
+creado_el TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+actualizado_el TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+estado TINYINT DEFAULT 1,
+PRIMARY KEY (id));
+
+CREATE TABLE IF NOT EXISTS generos (
+id INT NOT NULL AUTO_INCREMENT,
+genero VARCHAR(25) NOT NULL UNIQUE,
+PRIMARY KEY (id));
+
+CREATE TABLE IF NOT EXISTS libros (
+id INT NOT NULL AUTO_INCREMENT,
+nombre_libro VARCHAR(25) NOT NULL,
+autor VARCHAR(25) NOT NULL,
+fecha_lanzamiento DATE DEFAULT NULL,
+creado_el TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+actualizado_el TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+estado TINYINT DEFAULT 1,
+id_genero INT NOT NULL,
+CONSTRAINT fk_genero FOREIGN KEY (id_genero) REFERENCES generos(id),
+PRIMARY KEY (id));
+
+CREATE TABLE IF NOT EXISTS prestamos (
+id INT NOT NULL AUTO_INCREMENT,
+fecha_prestamo DATE DEFAULT NULL,
+fecha_devolucion_estimada DATE DEFAULT NULL,
+fecha_devolucion_real DATE DEFAULT NULL,
+id_usuarios INT NOT NULL,
+id_libros INT NOT NULL,
+CONSTRAINT fk_usuarios FOREIGN KEY(id_usuarios) REFERENCES usuarios(id),
+CONSTRAINT fk_libros FOREIGN KEY(id_libros) REFERENCES libros(id),
+PRIMARY KEY(id));
